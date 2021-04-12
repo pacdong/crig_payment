@@ -33,12 +33,22 @@ const Container = styled.div`
   display: flex;
 `;
 const Box = styled.div`
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 20px;
   margin-bottom: 10px;
   display: flex;
+  width: 100%;
+  align-items: center;
   justify-content: space-between;
+  margin-bottom: 20px;
+`;
+const SubmitButton = styled.button`
+  outline: none;
+  box-shadow: 0px;
+  width: 20%;
+  background-color: ${colors.whiteColor};
+  padding: 8px;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid ${colors.blackColor};
 `;
 const Text = styled.span`
   font-size: 1rem;
@@ -55,7 +65,7 @@ const TextInput = styled.input`
   appearance: none;
   outline: none;
   border-width: 0 0 0.5px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   &:focus {
     border-color: ${colors.activeColor};
     border-width: 0 0 1px;
@@ -71,11 +81,14 @@ function CardForLogin() {
         </Header>
         <Container>
           <Text>휴대폰 번호</Text>
-          <TextInput
-            placeholder="`-` 없이 입력해주세요"
-            maxLength={12}
-            type="number"
-          />
+          <Box>
+            <TextInput
+              placeholder="`-` 없이 입력해주세요"
+              maxLength={12}
+              type="number"
+            />
+            <SubmitButton>완료</SubmitButton>
+          </Box>
           <Text>인증번호</Text>
           <TextInput
             placeholder="`-` 없이 입력해주세요"
