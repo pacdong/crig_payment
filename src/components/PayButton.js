@@ -26,9 +26,9 @@ const Text = styled.span`
   font-weight: bold;
 `;
 
-function PayButton({ title = "" }) {
+function PayButton({ title = "", onClick }) {
   return (
-    <View>
+    <View onClick={onClick}>
       <Text>{title}</Text>
     </View>
   );

@@ -8,6 +8,7 @@ const HomeContainer = () => {
   const [price, setPrice] = useState(0);
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoffedIn] = useState(false);
+  const [payData, setPayData] = useState(false);
 
   const phoneNumberInput = useInput("");
   const authNumberInput = useInput("");
@@ -23,6 +24,9 @@ const HomeContainer = () => {
     }
     try {
       const { data } = confirmPurchaseAuthCodeMutation();
+      if (data.confirmPurchaseAuthCode) {
+        return setPayData(data.confirmPurchaseAuthCode);
+      }
     } catch (e) {
       console.log(e);
     } finally {
@@ -37,6 +41,7 @@ const HomeContainer = () => {
       handleLogIn={handleLogIn}
       phoneNumberInput={phoneNumberInput}
       authNumberInput={authNumberInput}
+      payData={payData}
     />
   );
 };

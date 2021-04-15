@@ -105,8 +105,8 @@ function HomePresenter({
           authNumberInput={authNumberInput}
         />
       )}
+      {!isLoggedIn && <PayButton title="인증하기" onClick={handleLogIn} />}
       {isLoggedIn && <PayButton title="결제하기" />}
-      {!isLoggedIn && <PayButton title="인증하기" />}
     </BackView>
   );
 }
