@@ -23,7 +23,12 @@ const HomeContainer = () => {
       return window.alert("먼저 핸드폰 인증을 받아주세요");
     }
     try {
-      const { data } = confirmPurchaseAuthCodeMutation();
+      const { data } = confirmPurchaseAuthCodeMutation({
+        variables: {
+          phoneNumber: phoneNumberInput.value,
+          authCode: authNumberInput.value,
+        },
+      });
       if (data.confirmPurchaseAuthCode) {
         return setPayData(data.confirmPurchaseAuthCode);
       }
