@@ -73,6 +73,8 @@ function HomePresenter({
   isLoggedIn = false,
   loading = false,
   handleLogIn = () => null,
+  phoneNumberInput,
+  authNumberInput,
 }) {
   return (
     <BackView>
@@ -95,8 +97,16 @@ function HomePresenter({
           </BottomBlock>
         </PaymentHeader>
       </Payment>
-      {isLoggedIn ? <CardForPay price={price} /> : <CardForLogin />}
-      <PayButton title={isLoggedIn ? "결제하기" : "인증하기"} />
+      {isLoggedIn ? (
+        <CardForPay price={price} />
+      ) : (
+        <CardForLogin
+          phoneNumberInput={phoneNumberInput}
+          authNumberInput={authNumberInput}
+        />
+      )}
+      {isLoggedIn && <PayButton title="결제하기" />}
+      {!isLoggedIn && <PayButton title="인증하기" />}
     </BackView>
   );
 }

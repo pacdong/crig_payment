@@ -1,10 +1,13 @@
-import React from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { REQUEST_PURCHASE_AUTHCODE } from "../../graphql/mutation";
 import colors from "../../styles/colors";
 
 const View = styled.div`
   width: 100%;
-  height: 44vh;
+  /* height: 44vh; */
+  /* ${(props) => (props.request ? "height: 44vh" : "height: 32vh")} */
   background-color: ${colors.emptyBackgroundColor};
   justify-content: center;
   align-items: center;
@@ -72,9 +75,32 @@ const TextInput = styled.input`
   }
 `;
 
-function CardForLogin() {
+function CardForLogin({ phoneNumberInput, authNumberInput }) {
+  const [request, setRequest] = useState(false);
+  const [requestPurchaseAuthcodeMutation] = useMutation(
+    REQUEST_PURCHASE_AUTHCODE
+  );
+
+  const requestAuthCode = async () => {
+    if (phoneNumberInput.value === "") {
+      return window.alert("폰번호를 입력해주세요");
+    }
+    setRequest(!request);
+    try {
+      const { data } = requestPurchaseAuthcodeMutation({
+        variables: {
+          phoneNumber: phoneNumberInput.value,
+        },
+      });
+      if (data) {
+        return window.alert("입력된 코드와 함께 인증하기 버튼을 눌러주세요.");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
-    <View>
+    <View request={request}>
       <Card>
         <Header>
           <HeaderText>결제요청 본인인증</HeaderText>
@@ -86,15 +112,23 @@ function CardForLogin() {
               placeholder="`-` 없이 입력해주세요"
               maxLength={12}
               type="number"
+              {...phoneNumberInput}
             />
-            <SubmitButton>완료</SubmitButton>
+            <SubmitButton onClick={requestAuthCode}>
+              {request ? "완료" : "보내기"}
+            </SubmitButton>
           </Box>
-          <Text>인증번호</Text>
-          <TextInput
-            placeholder="`-` 없이 입력해주세요"
-            maxLength={6}
-            type="number"
-          />
+          {request && (
+            <>
+              <Text>인증번호</Text>
+              <TextInput
+                placeholder="`-` 없이 입력해주세요"
+                maxLength={6}
+                type="number"
+                {...authNumberInput}
+              />
+            </>
+          )}
         </Container>
       </Card>
     </View>
