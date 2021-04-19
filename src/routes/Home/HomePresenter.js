@@ -73,6 +73,7 @@ function HomePresenter({
   isLoggedIn = false,
   loading = false,
   handleLogIn = () => null,
+  handlePay = () => null,
   phoneNumberInput,
   authNumberInput,
   payData,
@@ -107,7 +108,7 @@ function HomePresenter({
         />
       )}
       {!isLoggedIn && <PayButton title="인증하기" onClick={handleLogIn} />}
-      {isLoggedIn && <PayButton title="결제하기" />}
+      {isLoggedIn && <PayButton title="결제하기" onClick={handlePay} />}
     </BackView>
   );
 }

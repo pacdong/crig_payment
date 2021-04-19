@@ -8,7 +8,10 @@ const HomeContainer = () => {
   const [price, setPrice] = useState(0);
   const [loading, setLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [payData, setPayData] = useState(false);
+  const [payData, setPayData] = useState({
+    TPH: { phoneNumber: "", price: 0 },
+    craneNames: [],
+  });
 
   const phoneNumberInput = useInput("");
   const authNumberInput = useInput("");
@@ -49,6 +52,31 @@ const HomeContainer = () => {
       setLoading(false);
     }
   };
+
+  const handlePay = () => {
+    console.log("페이실행");
+    const userCode = "imp76012341";
+    const pgData = {
+      pg: "html5_inicis", // PG사
+      pay_method: "card", // 결제수단
+      merchant_uid: `mid_${new Date().getTime()}`, // 주문번호
+      amount: payData.TPH.price, // 결제금액
+      name: payData.craneNames.join(""), // 주문명
+      buyer_tel: payData.TPH.phoneNumber, // 구매자 전화번호
+    };
+    try {
+      const { IMP } = window;
+      IMP.init(userCode);
+      IMP.request_pay(pgData, afterPay);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const afterPay = async () => {
+    console.log("결제 성공");
+  };
+
   return (
     <HomePresenter
       price={price}
@@ -58,6 +86,7 @@ const HomeContainer = () => {
       phoneNumberInput={phoneNumberInput}
       authNumberInput={authNumberInput}
       payData={payData}
+      handlePay={handlePay}
     />
   );
 };

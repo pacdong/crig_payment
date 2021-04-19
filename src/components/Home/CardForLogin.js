@@ -111,7 +111,7 @@ function CardForLogin({ phoneNumberInput, authNumberInput }) {
             <TextInput
               placeholder="`-` 없이 입력해주세요"
               maxLength={12}
-              // type="number"
+              type="number"
               {...phoneNumberInput}
             />
             <SubmitButton onClick={requestAuthCode}>
@@ -124,7 +124,7 @@ function CardForLogin({ phoneNumberInput, authNumberInput }) {
               <TextInput
                 placeholder="`-` 없이 입력해주세요"
                 maxLength={6}
-                // type="number"
+                type="number"
                 {...authNumberInput}
               />
             </>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import colors from "../../styles/colors";
 
@@ -52,6 +52,11 @@ function CardForPay({
   const comma = payData.TPH.price
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  useEffect(() => {
+    window.alert("결제 정보를 확인하시고 진행해주세요.");
+  }, []);
+
   return (
     <View>
       <Card>
