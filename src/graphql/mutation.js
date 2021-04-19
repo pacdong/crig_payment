@@ -9,14 +9,13 @@ export const REQUEST_PURCHASE_AUTHCODE = gql`
 export const CONFIRM_PURCHASE_AUTHCODE = gql`
   mutation confirmPurchaseAuthCode($phoneNumber: String!, $authCode: String!) {
     confirmPurchaseAuthCode(phoneNumber: $phoneNumber, authCode: $authCode) {
-      id
-      phoneNumber
-      craneNames {
-        id
-        craneName
+      TPH {
+        phoneNumber
+        price
+        authCode
+        paid
       }
-      price
-      authCode
+      craneNames
     }
   }
 `;

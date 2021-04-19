@@ -75,6 +75,7 @@ function HomePresenter({
   handleLogIn = () => null,
   phoneNumberInput,
   authNumberInput,
+  payData,
 }) {
   return (
     <BackView>
@@ -98,7 +99,7 @@ function HomePresenter({
         </PaymentHeader>
       </Payment>
       {isLoggedIn ? (
-        <CardForPay price={price} />
+        <CardForPay price={price} payData={payData} />
       ) : (
         <CardForLogin
           phoneNumberInput={phoneNumberInput}

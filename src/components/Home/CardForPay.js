@@ -40,8 +40,18 @@ const Text = styled.span`
   font-size: 1.2rem;
 `;
 
-function CardForPay({ price = 0 }) {
-  const comma = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function CardForPay({
+  payData = {
+    TPH: {
+      phoneNumber: "",
+      price: 0,
+    },
+    craneNames: [],
+  },
+}) {
+  const comma = payData.TPH.price
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return (
     <View>
       <Card>
@@ -51,7 +61,7 @@ function CardForPay({ price = 0 }) {
         <Container>
           <Box>
             <Text>선택한 대수</Text>
-            <Text>0 대</Text>
+            <Text>{payData.craneNames.length} 대</Text>
           </Box>
           <Box>
             <Text>금액 정보</Text>
